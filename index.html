@@ -2,8 +2,22 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="VoiceNote MD: detta una nota vocale e convertila in Markdown con DeepSeek.">
+    <meta name="color-scheme" content="light">
     <title>VoiceNote MD</title>
+
+    <!-- PWA: manifest e icone (percorsi relativi per funzionare anche in sottocartelle) -->
+    <link rel="manifest" href="./manifest.json">
+    <link rel="icon" type="image/png" sizes="1024x1024" href="./icon.png">
+    <link rel="apple-touch-icon" sizes="1024x1024" href="./icon.png">
+
+    <!-- PWA su iOS: il tema e l'icona non vengono letti dal manifest -->
+    <meta name="theme-color" content="#fbfbfa">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="VoiceNote MD">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <style>
         :root {
             --bg: #fbfbfa;
@@ -726,8 +740,27 @@ Restituisci SOLO il codice Markdown puro, senza preamboli o commenti.`;
             }, 2000);
         }
 
+        // --- PWA: registrazione del service worker ---
+        // Registrato solo se supportato e in contesto sicuro (https o localhost).
+        function registerServiceWorker() {
+            if (!('serviceWorker' in navigator)) return;
+
+            navigator.serviceWorker
+                .register('./sw.js')
+                .catch((error) => {
+                    // La registrazione fallita non deve rompere l'app.
+                    console.warn('[PWA] Service worker non registrato:', error);
+                });
+        }
+
         // Avvia
-        document.addEventListener('DOMContentLoaded', init);
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+
+        window.addEventListener('load', registerServiceWorker);
 
     </script>
 </body>
