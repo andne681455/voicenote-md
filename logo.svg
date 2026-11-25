@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Sfondo arrotondato -->
+  <rect width="512" height="512" rx="112" fill="#4f46e5" />
+  <!-- Icona Microfono -->
+  <g fill="none" stroke="#ffffff" stroke-width="32" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Corpo del microfono -->
+    <rect x="192" y="112" width="128" height="192" rx="64" />
+    <!-- Archetto -->
+    <path d="M 144 240 v 32 a 112 112 0 0 0 224 0 v -32" />
+    <!-- Gambo -->
+    <line x1="256" y1="384" x2="256" y2="432" />
+    <!-- Base -->
+    <line x1="208" y1="432" x2="304" y2="432" />
+  </g>
+</svg>
